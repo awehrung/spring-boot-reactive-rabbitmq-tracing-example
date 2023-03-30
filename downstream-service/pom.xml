@@ -22,6 +22,7 @@
         <project.buildDir>${project.basedir}/target</project.buildDir>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <snakeyaml.version>2.0</snakeyaml.version>
+        <aws-software.version>2.20.35</aws-software.version>
     </properties>
 
     <dependencyManagement>
@@ -31,6 +32,14 @@
                 <groupId>org.yaml</groupId>
                 <artifactId>snakeyaml</artifactId>
                 <version>${snakeyaml.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>${aws-software.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -83,6 +92,11 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
         </dependency>
     </dependencies>
 

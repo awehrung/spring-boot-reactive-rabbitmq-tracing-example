@@ -2,6 +2,13 @@ server:
   port: 12002
 rabbitmq:
   queue: "my.queue"
+dynamodb:
+  tableName: "my-db"
+aws:
+  region: "eu-central-1"
+  accessKeyId: "foo"
+  secretAccessKey: "bar"
+  endpoint: "http://localstack:4566"
 spring:
   rabbitmq:
     addresses: "rabbitmq:5672"

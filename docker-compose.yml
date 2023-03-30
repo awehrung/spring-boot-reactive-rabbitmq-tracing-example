@@ -32,3 +32,12 @@ services:
     volumes:
       - "./rabbitmq/config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:rw"
       - "./rabbitmq/config/definitions.json:/etc/rabbitmq/definitions.json:rw"
+
+  localstack:
+    image: localstack/localstack:1.4.0
+    container_name: "localstack"
+    ports:
+      - "4566:4566"
+    volumes:
+      - "./localstack/config/startup.sh:/etc/localstack/init/ready.d/startup.sh"
+      - "/var/run/docker.sock:/var/run/docker.sock"

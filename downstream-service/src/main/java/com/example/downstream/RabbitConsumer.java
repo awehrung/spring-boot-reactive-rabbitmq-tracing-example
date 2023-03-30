@@ -14,15 +14,26 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @RabbitListener(queues = "${rabbitmq.queue}")
 public class RabbitConsumer {
+    private final DynamoDbService dynamoDbService;
+
     @RabbitHandler
     public void consumeMessage(String message, MessageProperties messageProperties) {
         log.info("Consuming message: {}", message);
         log.info("B3-Header: {}", (String) messageProperties.getHeader("b3"));
         log.info("W3C-Header: {}", (String) messageProperties.getHeader("traceparent"));
-        
-        Mono.just(message)
-                .doOnNext(m -> log.info("Consumed message: {}", m))
-                .subscribe();
+
+        if (message.startsWith("TEST:")) {
+            Mono.just(message)
+                    .doOnNext(m -> log.info("Consumed message: {}", m))
+                    .subscribe();
+        } else if (message.startsWith("WRITE:")) {
+            String cleanedMessage = message.replaceFirst("WRITE:", "");
+            dynamoDbService.saveMessage(cleanedMessage)
+                    .doOnNext(id -> log.info("Wrote message: {} with id: {}", cleanedMessage, id))
+                    .subscribe();
+        } else {
+            throw new IllegalArgumentException("Unsupported message");
+        }
     }
 
     @RabbitHandler(isDefault = true)
