@@ -17,7 +17,7 @@ public class RabbitConsumer {
     @RabbitHandler
     public void consumeMessage(String message, MessageProperties messageProperties) {
         log.info("Consuming message: {}", message);
-        log.info("Message properties: {}", messageProperties);
+        log.info("B3-Header: {}", (String) messageProperties.getHeader("b3"));
         
         Mono.just(message)
                 .doOnNext(m -> log.info("Consumed message: {}", m))
