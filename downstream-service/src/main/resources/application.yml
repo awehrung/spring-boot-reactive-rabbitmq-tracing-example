@@ -1,2 +1,20 @@
 server:
   port: 12002
+rabbitmq:
+  queue: "my.queue"
+spring:
+  rabbitmq:
+    addresses: "rabbitmq:5672"
+    username: "downstream-user"
+    password: "password"
+logging:
+  level:
+    root: info
+    com.example: debug
+management:
+  tracing:
+    propagation:
+      type: b3
+    enabled: true
+    sampling:
+      probability: 1.0

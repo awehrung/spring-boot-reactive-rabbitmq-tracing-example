@@ -15,7 +15,7 @@ public class RabbitPublisher {
     private final QueueConfigProperties queueConfigProperties;
     
     public void publishMessage(String message) {
-        log.info("Publishing {}", message);
+        log.info("Publishing message: {}", message);
 
         Message convertedPayload = rabbitTemplate.getMessageConverter().toMessage(message, new MessageProperties());
         
