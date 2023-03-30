@@ -1,2 +1,21 @@
 server:
   port: 12001
+rabbitmq:
+  exchange: "my.exchange"
+  key: ""
+spring:
+  rabbitmq:
+    addresses: "rabbitmq:5672"
+    username: "upstream-user"
+    password: "password"
+logging:
+  level:
+    root: info
+    com.example: debug
+management:
+  tracing:
+    propagation:
+      type: b3
+    enabled: true
+    sampling:
+      probability: 1.0
