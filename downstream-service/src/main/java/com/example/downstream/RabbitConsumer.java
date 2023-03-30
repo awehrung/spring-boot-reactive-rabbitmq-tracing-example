@@ -18,6 +18,7 @@ public class RabbitConsumer {
     public void consumeMessage(String message, MessageProperties messageProperties) {
         log.info("Consuming message: {}", message);
         log.info("B3-Header: {}", (String) messageProperties.getHeader("b3"));
+        log.info("W3C-Header: {}", (String) messageProperties.getHeader("traceparent"));
         
         Mono.just(message)
                 .doOnNext(m -> log.info("Consumed message: {}", m))
