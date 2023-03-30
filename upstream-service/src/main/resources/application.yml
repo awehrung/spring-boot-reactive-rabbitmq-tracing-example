@@ -16,6 +16,3 @@ management:
   tracing:
     propagation:
       type: b3
-    enabled: true
-    sampling:
-      probability: 1.0
