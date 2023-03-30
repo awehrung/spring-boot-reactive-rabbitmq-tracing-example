@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  upstream-service:
+    build:
+      context: "upstream-service"
+    container_name: "upstream-service"
+    depends_on:
+      - rabbitmq
+    ports:
+      - "12001:12001"
+    volumes:
+      - "./upstream-service/target/upstream-service.jar:/home/appuser/app.jar:ro"
+  
+  downstream-service:
+    build:
+      context: "downstream-service"
+    container_name: "downstream-service"
+    depends_on:
+      - rabbitmq
+    ports:
+      - "12002:12002"
+    volumes:
+      - "./downstream-service/target/downstream-service.jar:/home/appuser/app.jar:ro"
+
+  rabbitmq:
+    image: rabbitmq:3.11.11-management
+    container_name: "rabbitmq"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - "./rabbitmq/config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:rw"
+      - "./rabbitmq/config/definitions.json:/etc/rabbitmq/definitions.json:rw"
