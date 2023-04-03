@@ -12,6 +12,7 @@ public class RabbitConfig {
     
     @PostConstruct
     void enableObservation() {
+        // !!! Observation is not enabled by default, which prevents the tracing headers to be propagated over the queue
         rabbitTemplate.setObservationEnabled(true);
     }
 }

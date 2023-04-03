@@ -13,7 +13,7 @@ public class RabbitConfig {
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(CachingConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
-        factory.setMicrometerEnabled(true);
+        // !!! Observation is not enabled by default, which prevents the tracing headers to be propagated over the queue
         factory.setObservationEnabled(true);
         return factory;
     }

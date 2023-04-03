@@ -21,6 +21,8 @@ public class DynamoDbConfig {
         DynamoDbAsyncClientBuilder builder = DynamoDbAsyncClient.builder();
         
         builder.region(Region.of(awsConfigProperties.getRegion()));
+        
+        // !!! This is for Localstack only, do not use static keys when using a real AWS environment
         builder.credentialsProvider(
                 StaticCredentialsProvider.create(
                         AwsBasicCredentials.create(

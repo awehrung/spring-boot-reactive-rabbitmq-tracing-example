@@ -19,6 +19,8 @@ public class RabbitConsumer {
     @RabbitHandler
     public void consumeMessage(String message, MessageProperties messageProperties) {
         log.info("Consuming message: {}", message);
+        
+        // !!! Only one of these will be non-null, depending on the "management.tracing.propagation.type" property
         log.info("B3-Header: {}", (String) messageProperties.getHeader("b3"));
         log.info("W3C-Header: {}", (String) messageProperties.getHeader("traceparent"));
 
@@ -30,6 +32,8 @@ public class RabbitConsumer {
             String cleanedMessage = message.replaceFirst("WRITE:", "");
             dynamoDbService.saveMessage(cleanedMessage)
                     .doOnNext(id -> log.info("Wrote message: {} with id: {}", cleanedMessage, id))
+                    // !!! We need contextCapture just before subscribe else the context is still not available in some cases
+                    .contextCapture()
                     .subscribe();
         } else {
             throw new IllegalArgumentException("Unsupported message");

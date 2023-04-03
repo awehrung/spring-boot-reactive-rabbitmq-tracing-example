@@ -25,6 +25,7 @@ public class DynamoDbService {
         UUID id = UUID.randomUUID();
 
         return Mono.fromFuture(this.putItem(id, message))
+                // !!! We need contextWrite after creating a mono from non-reactive source, see https://github.com/reactor/reactor-core/issues/3366
                 .contextWrite(Function.identity())
                 .doOnNext(response -> log.info("Wrote item to DynamoDB {}/{}", id, message))
                 .thenReturn(id);

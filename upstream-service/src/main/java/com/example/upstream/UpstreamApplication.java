@@ -9,6 +9,7 @@ import reactor.core.publisher.Hooks;
 @ConfigurationPropertiesScan("com.example.upstream")
 public class UpstreamApplication {
     public static void main(String[] args) {
+        // !!! Nothing works without this hook, see https://github.com/spring-projects/spring-boot/issues/34201
         Hooks.enableAutomaticContextPropagation();
         SpringApplication.run(UpstreamApplication.class, args);
     }

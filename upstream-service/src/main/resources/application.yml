@@ -15,4 +15,5 @@ logging:
 management:
   tracing:
     propagation:
+      # !!! Use "b3" or "w3c" to switch the propagation standard 
       type: b3
