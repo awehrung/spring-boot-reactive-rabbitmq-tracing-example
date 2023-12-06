@@ -2,6 +2,8 @@
 
 ## Build
 
+Required: Java 21, Maven, Docker
+
 ```shell
 mvn clean install
 docker-compose build

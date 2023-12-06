@@ -1,8 +1,6 @@
-FROM alpine:3.16.3
+FROM azul/zulu-openjdk-alpine:21-jre
 
-RUN apk --no-cache add \
-    openjdk17-jre \
-    bash 
+RUN apk --no-cache add bash
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /home/appuser

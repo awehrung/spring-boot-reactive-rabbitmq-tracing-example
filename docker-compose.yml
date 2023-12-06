@@ -24,7 +24,7 @@ services:
       - "./downstream-service/target/downstream-service.jar:/home/appuser/app.jar:ro"
 
   rabbitmq:
-    image: rabbitmq:3.11.11-management
+    image: rabbitmq:3.12.10-management
     container_name: "rabbitmq"
     ports:
       - "15672:15672"
@@ -34,7 +34,7 @@ services:
       - "./rabbitmq/config/definitions.json:/etc/rabbitmq/definitions.json:rw"
 
   localstack:
-    image: localstack/localstack:1.4.0
+    image: localstack/localstack:3.0.2
     container_name: "localstack"
     ports:
       - "4566:4566"
